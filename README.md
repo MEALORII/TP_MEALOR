@@ -29,24 +29,30 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
 - 2.1 First, clone the MEALOR project repository:
   
-  `git clone https://github.com/MEALORII/TP_MEALOR.git`
+  ```bash
+  git clone https://github.com/MEALORII/TP_MEALOR.git
+  ```
 
   If you don't have `git` installed, [download directly the source files](https://github.com/MEALORII/TP_MEALOR/archive/refs/heads/main.zip)
 
-- 2.2 Then pull the Docker image by running in the same terminal:
-  
-  - on Windows:
-    
+- 2.2 Then pull the Docker image by running in the same terminal (this may take a while, approx 5 Go to download):
+
     ```bash
     docker pull ghcr.io/bleyerj/mealor:latest
+    ```
+ 
+ - 2.3 Then run the image with either:
+  
+    * on Windows:
+    
+    ```bash
     docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared mealor:latest
     ```
     
 
-   - on Mac/Linux:
+     * on Mac/Linux:
   
       ```
-      docker pull ghcr.io/bleyerj/mealor:latest
       docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared mealor:latest
       ```
   
@@ -64,9 +70,11 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 4. A JupyterLab instance should now open.
    Navigate into the `TP_MEALOR` folder
    Inside JupyterLab open a terminal and run
-   `pip install mealor/`
+   ```
+   pip install mealor/
+   ```
 
-5. You can now open any of the notebooks and start working.
+6. You can now open any of the notebooks and start working.
 
 Your results will be saved into ".xdmf" file formats that you can open with Paraview for visualization
 
