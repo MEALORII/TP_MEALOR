@@ -4,18 +4,36 @@
 
 Summer school website: https://mealor2.sciencesconf.org
 
+## Preamble
+
+For the numerical sessions of MEALOR II, we will work with Jupyter notebooks and Python scripts.
+
+The contents rely on various open-source projects:
+* [FEniCSx](https://fenicsproject.org/) for the finite-element analysis (`dolfinx` >= 0.6)
+* [Gmsh](https://gmsh.info/) Python API for the mesh generation
+* [MFront](https://tfel.sourceforge.net/) for complex material constitutive modeling (`TFEL` >= 4.1) along with:
+   - the [MFrontGenericInterfaceSupport](https://github.com/thelfer/MFrontGenericInterfaceSupport) project (`MGIS` >= 2.1)
+   - the [dolfinx_materials](https://gitlab.enpc.fr/navier-fenics/dolfinx_materials) package for interfacing MFront with FEniCS.
+
+We will also make a small use of [pyvista](https://pyvista.org/) for some plotting. However, most visualization of results will be done using [Paraview](https://www.paraview.org/).
+
+To avoid cumbersome installation procedures, we provide a self-contained Docker image which you need to download, see installation instructions below. You only need to download and install Paraview on your machine for the visualization.
+
 ## Installation instructions
 
-1. Install Docker and Paraview on your system
+0. Install Paraview on your system : https://www.paraview.org/download/
+   
+2. Install Docker on your system : https://docs.docker.com/desktop/
 
-2. Once Docker is installed, open a terminal and run the following commands
+3. Once Docker is installed, open a terminal and run the following commands
 
-- 2.1 First, clone the MEALOR project repository
+- 2.1 First, clone the MEALOR project repository:
   
   `git clone https://github.com/MEALORII/TP_MEALOR.git`
-  
 
-- 2.2 Then pull the Docker image:
+  If you don't have `git` installed, [download directly the source files](https://github.com/MEALORII/TP_MEALOR/archive/refs/heads/main.zip)
+
+- 2.2 Then pull the Docker image by running in the same terminal:
   
   - on Windows:
     
@@ -52,14 +70,6 @@ Summer school website: https://mealor2.sciencesconf.org
 
 Your results will be saved into ".xdmf" file formats that you can open with Paraview for visualization
 
-
-### Requirements
-
-* `FEniCSx` suite:  `dolfinx` >= 0.6
-* `mfront` (TFEL 4.1) with Python bindings
-* `MFrontGenericInterfaceSupport` (>= 2.1) with Python bindings
-* `pyvista`
-* `gmsh`
 
 ## Practical works
 
