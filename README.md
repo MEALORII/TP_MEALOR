@@ -25,7 +25,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
    
 2. Install Docker on your system : https://docs.docker.com/desktop/
 
-3. Once Docker is installed, open a terminal and run the following commands
+3. Once Docker is installed and running, open a terminal and run the following commands
 
 - 2.1 First, clone the MEALOR project repository:
   
@@ -46,14 +46,14 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
     * on Windows:
     
     ```bash
-    docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared mealor:latest
+    docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
     ```
     
 
      * on Mac/Linux:
   
       ```
-      docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared mealor:latest
+      docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
       ```
   
 
