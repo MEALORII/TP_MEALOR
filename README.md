@@ -30,7 +30,6 @@ Summer school website: https://mealor2.sciencesconf.org
   
 
 3. Then you should see something like:
-    
     ```
     To access the server, open this file in a browser:
      file:///home/jovyan/.local/share/jupyter/runtime/jpserver-369-open.html
@@ -41,7 +40,7 @@ Summer school website: https://mealor2.sciencesconf.org
     Click on one of the links or copy and paste into your Web browser
 
 4. A JupyterLab instance should now open.
-   Navigate into the `TP` folder
+   Navigate into the `TP_MEALOR` folder
    Inside JupyterLab open a terminal and run
    `pip install mealor/`
 
