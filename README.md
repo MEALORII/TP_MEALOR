@@ -68,7 +68,9 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
     Click on one of the links or copy and paste into your Web browser
 
 4. A JupyterLab instance should now open.
-   Navigate into the `TP_MEALOR` folder
+   
+   Navigate into the `TP_MEALOR` folder.
+
    Inside JupyterLab open a terminal and run
    ```
    pip install mealor/
