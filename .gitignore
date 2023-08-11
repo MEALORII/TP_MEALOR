@@ -1,0 +1,61 @@
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Lock files
+.~lock.*
+
+# Virtual environment
+venv*
+
+# Coverage
+.coverage
+
+# Python #
+##########
+*.pyc
+.ipynb_checkpoints
+.pytest_cache
+
+# Build #
+#########
+build
+dist
+__pycache__
+*.egg-info
+
+# LaTeX #
+#########
+*.aux
+*.bbl
+*.blg
+*.out
+*.spl
+*.log
+*.pdf
+*.sav
+*.bak
+_minted*
+
+# Output/Mesh #
+*.xdmf
+*.h5
+*.msh
+*.json
+
+# Vscode
+.vscode
+
+
+# FEniCS failures
+jitfailure*
+
