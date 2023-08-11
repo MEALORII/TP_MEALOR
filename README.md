@@ -78,6 +78,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
 Your results will be saved into ".xdmf" file formats that you can open with Paraview for visualization
 
+**Reuse**: For later usage, just start at step 2.3.
 
 ## Practical works
 
