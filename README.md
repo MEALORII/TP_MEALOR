@@ -1,8 +1,8 @@
-# FEniCSx scripts for MEALOR II Summer School
-
-![test](https://mealor2.sciencesconf.org/data/pages/montage1.png)
-
-Summer school website: https://mealor2.sciencesconf.org
+<h1 align="center"> FEniCSx scripts for MEALOR II Summer School </h1>
+<h2 align="center"> Summer school website: https://mealor2.sciencesconf.org </h2>
+<p align="center">
+  <img src="https://mealor2.sciencesconf.org/data/pages/montage1.png" />
+</p>
 
 ## Preamble
 
@@ -43,7 +43,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
  
  - 2.3 Then run the image with either:  
 
-     * on Mac/Linux:
+     * on **Mac/Linux**:
   
       ```bash
       docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
@@ -53,7 +53,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
       sh TP_MEALOR/launch_mealor.sh
       ```
      
-    * on Windows:
+    * on **Windows**:
     
     ```bash
     docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
