@@ -41,25 +41,24 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
     docker pull ghcr.io/bleyerj/mealor:latest
     ```
  
- - 2.3 Then run the image with either:
+ - 2.3 Then run the image with either:  
+
+     * on Mac/Linux:
   
+      ```bash
+      docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
+      ```
+      or, equivalently,
+      ```bash
+      sh TP_MEALOR/launch_mealor.sh
+      ```
+     
     * on Windows:
     
     ```bash
     docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
     ```
     
-
-     * on Mac/Linux:
-  
-      ```
-      docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
-      ```
-     or, equivalently,
-      ```
-      sh TP_MEALOR/launch_mealor.sh
-      ```
-     
 
 3. Then you should see something like:
     ```
