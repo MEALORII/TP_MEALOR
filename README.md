@@ -9,7 +9,7 @@
 For the numerical sessions of MEALOR II, we will work with Jupyter notebooks and Python scripts.
 
 The contents rely on various open-source projects:
-* [FEniCSx](https://fenicsproject.org/) for the finite-element analysis (`dolfinx` >= 0.6)
+* [FEniCSx](https://fenicsproject.org/) for the finite-element analysis (`dolfinx` >= 0.6). For a short introduction of FEniCSx in solid mechanics, [see the following tutorials](https://gitlab.enpc.fr/navier-fenics/fenicsx-tutorials)
 * [Gmsh](https://gmsh.info/) Python API for the mesh generation
 * [MFront](https://tfel.sourceforge.net/) for complex material constitutive modeling (`TFEL` >= 4.1) along with:
    - the [MFrontGenericInterfaceSupport](https://github.com/thelfer/MFrontGenericInterfaceSupport) project (`MGIS` >= 2.1)
