@@ -83,27 +83,6 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
 Your results will be saved into ".xdmf" file formats that you can open with Paraview for visualization
 
+**Test installation**: Run the notebook [Test_Installation.ipynb](Test_Installation.ipynb) to check that everything is properly installed.
+
 **Reuse**: For later usage, just start at step 2.3.
-
-## Practical works
-
-### [TP3 : Linear Elastic Fracture Mechanics](TP3_LEFM/LEFM.ipynb)
-
-### Ductile fracture (GTN model)
-
-- NT sample, influence of notch radius
-
-- mesh size dependence
-* anisotropic behaviour
-
-### [TP6 : Implementation of damage gradient/phase-field models for brittle fracture](TP6_Variational_damage_gradient/Variational_Damage_Gradient.ipynb)
-
-### Simulation of regularized brittle fracture
-
-- TDCB
-
-### Simulation of regularized ductile fracture
-
-- Explicit gradient model
-
-- Implicit gradient model
