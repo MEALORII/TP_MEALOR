@@ -33,7 +33,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
   git clone https://github.com/MEALORII/TP_MEALOR.git
   ```
 
-  If you don't have `git` installed, [download directly the source files](https://github.com/MEALORII/TP_MEALOR/archive/refs/heads/main.zip)
+  If you don't have `git` installed, [download directly the source files](https://github.com/MEALORII/TP_MEALOR/archive/refs/heads/main.zip), extract them and navigate to the corresponding folder from the terminal.
 
 - 2.2 Then pull the Docker image by running in the same terminal (this may take a while, approx 5 Go to download):
 
