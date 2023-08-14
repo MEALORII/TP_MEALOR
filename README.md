@@ -23,9 +23,9 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
 0. Install Paraview on your system : https://www.paraview.org/download/
    
-2. Install Docker on your system : https://docs.docker.com/desktop/
+2. Install Docker on your system : https://docs.docker.com/desktop/. For Linux users, make sure to add your username to the Docker user group (cf. [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/))
 
-3. Once Docker is installed and running, open a terminal and run the following commands
+3. Once Docker is installed and running (you may need to reboot first), open a terminal and run the following commands
 
 - 2.1 First, clone the MEALOR project repository:
   
