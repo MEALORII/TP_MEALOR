@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 pv.global_theme.enable_camera_orientation_widget = True
 pv.set_plot_theme("paraview")
 pv.start_xvfb(wait=0.1)
-pv.set_jupyter_backend("static")  # "panel" for interaction
+pv.set_jupyter_backend("panel")  # "panel" for interaction
 pv.global_theme.font.color = "black"
 
 
