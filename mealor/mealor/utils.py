@@ -59,6 +59,7 @@ def evaluate_on_points(field, points):
     - points_on_proc: the local slice of the point array
     - values_on_proc: the local slice of the values
     """
+    points = np.asarray(points)
     mesh = field.function_space.mesh
     bb_tree = dolfinx.geometry.BoundingBoxTree(mesh, mesh.topology.dim)
     # for each point, compute a colliding cells and append to the lists
@@ -70,16 +71,19 @@ def evaluate_on_points(field, points):
     colliding_cells = dolfinx.geometry.compute_colliding_cells(
         mesh, cell_candidates, points
     )  # get actual
-    for i, point in enumerate(points):
-        if len(colliding_cells.links(i)) > 0:
-            cc = colliding_cells.links(i)[0]
-            points_on_proc.append(point)
-            cells.append(cc)
-    # convert to numpy array
-    points_on_proc = np.array(points_on_proc)
-    cells = np.array(cells)
-    values_on_proc = field.eval(points_on_proc, cells)
-    return values_on_proc.ravel(), points_on_proc
+    if len(points.shape) == 1:
+        return field.eval(points, colliding_cells)
+    else:
+        for i, point in enumerate(points):
+            if len(colliding_cells.links(i)) > 0:
+                cc = colliding_cells.links(i)[0]
+                points_on_proc.append(point)
+                cells.append(cc)
+        # convert to numpy array
+        points_on_proc = np.array(points_on_proc)
+        cells = np.array(cells)
+        values_on_proc = field.eval(points_on_proc, cells)
+        return values_on_proc.ravel(), points_on_proc
 
 
 def interpolate_expr(expr, V, name=""):
@@ -109,7 +113,7 @@ def save_to_file(filename, u, t=0, rewrite=True):
     if not filename.endswith(".xdmf"):
         filename += f"_{u.name}.xdmf"
     else:
-        filename.replace(".xdmf", f"_{u.name}.xdmf")
+        filename = filename.replace(".xdmf", f"_{u.name}.xdmf")
 
     domain = u.function_space.mesh
 
