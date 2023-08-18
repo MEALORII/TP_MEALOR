@@ -76,7 +76,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
    Inside JupyterLab open a terminal and run
    ```
-   pip install mealor/
+   pip install mealor/ --user
    ```
 
 6. You can now open any of the notebooks and start working.
