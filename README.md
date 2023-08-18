@@ -1,15 +1,15 @@
-# FEniCSx scripts for MEALOR II Summer School
-
-![test](https://mealor2.sciencesconf.org/data/pages/montage1.png)
-
-Summer school website: https://mealor2.sciencesconf.org
+<h1 align="center"> FEniCSx scripts for MEALOR II Summer School </h1>
+<h2 align="center"> Summer school website: https://mealor2.sciencesconf.org </h2>
+<p align="center">
+  <img src="https://mealor2.sciencesconf.org/data/pages/montage1.png" />
+</p>
 
 ## Preamble
 
 For the numerical sessions of MEALOR II, we will work with Jupyter notebooks and Python scripts.
 
 The contents rely on various open-source projects:
-* [FEniCSx](https://fenicsproject.org/) for the finite-element analysis (`dolfinx` >= 0.6)
+* [FEniCSx](https://fenicsproject.org/) for the finite-element analysis (`dolfinx` >= 0.6). For a short introduction of FEniCSx in solid mechanics, [see the following tutorials](https://gitlab.enpc.fr/navier-fenics/fenicsx-tutorials)
 * [Gmsh](https://gmsh.info/) Python API for the mesh generation
 * [MFront](https://tfel.sourceforge.net/) for complex material constitutive modeling (`TFEL` >= 4.1) along with:
    - the [MFrontGenericInterfaceSupport](https://github.com/thelfer/MFrontGenericInterfaceSupport) project (`MGIS` >= 2.1)
@@ -23,9 +23,9 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
 0. Install Paraview on your system : https://www.paraview.org/download/
    
-2. Install Docker on your system : https://docs.docker.com/desktop/
+2. Install Docker on your system : https://docs.docker.com/desktop/. For Linux users, make sure to add your username to the Docker user group (cf. [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/))
 
-3. Once Docker is installed and running, open a terminal and run the following commands
+3. Once Docker is installed and running (you may need to reboot first), open a terminal and run the following commands
 
 - 2.1 First, clone the MEALOR project repository:
   
@@ -33,7 +33,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
   git clone https://github.com/MEALORII/TP_MEALOR.git
   ```
 
-  If you don't have `git` installed, [download directly the source files](https://github.com/MEALORII/TP_MEALOR/archive/refs/heads/main.zip)
+  If you don't have `git` installed, [download directly the source files](https://github.com/MEALORII/TP_MEALOR/archive/refs/heads/main.zip), extract them and navigate to the corresponding folder from the terminal.
 
 - 2.2 Then pull the Docker image by running in the same terminal (this may take a while, approx 5 Go to download):
 
@@ -43,17 +43,17 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
  
  - 2.3 Then run the image with either:  
 
-     * on Mac/Linux:
+     * on **Mac/Linux**:
   
       ```bash
-      docker run --init --rm -ti -p 8888:8888 --e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
+      docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "$(pwd)":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
       ```
       or, equivalently,
       ```bash
       sh TP_MEALOR/launch_mealor.sh
       ```
      
-    * on Windows:
+    * on **Windows**:
     
     ```bash
     docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
@@ -76,34 +76,13 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
    Inside JupyterLab open a terminal and run
    ```
-   pip install mealor/
+   pip install mealor/ --user
    ```
 
 6. You can now open any of the notebooks and start working.
 
 Your results will be saved into ".xdmf" file formats that you can open with Paraview for visualization
 
+**Test installation**: Run the notebook [Test_Installation.ipynb](Test_Installation.ipynb) to check that everything is properly installed.
+
 **Reuse**: For later usage, just start at step 2.3.
-
-## Practical works
-
-### [TP3 : Linear Elastic Fracture Mechanics](TP3_LEFM/LEFM.ipynb)
-
-### Ductile fracture (GTN model)
-
-- NT sample, influence of notch radius
-
-- mesh size dependence
-* anisotropic behaviour
-
-### [TP6 : Implementation of damage gradient/phase-field models for brittle fracture](TP6_Variational_damage_gradient/Variational_Damage_Gradient.ipynb)
-
-### Simulation of regularized brittle fracture
-
-- TDCB
-
-### Simulation of regularized ductile fracture
-
-- Explicit gradient model
-
-- Implicit gradient model
