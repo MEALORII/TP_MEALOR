@@ -23,7 +23,7 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
 
 0. Install Paraview on your system : https://www.paraview.org/download/
    
-2. Install Docker on your system : https://docs.docker.com/desktop/. For Linux users, make sure to add your username to the Docker user group (cf. [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/))
+2. Install Docker on your system : https://docs.docker.com/desktop/. For Linux and Windows users, make sure to add your username to the Docker user group (cf. [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/) or the final step of either of the [Windows installs](https://docs.docker.com/desktop/install/windows-install/#install-docker-desktop-on-windows))
 
 3. Once Docker is installed and running (you may need to reboot first), open a terminal and run the following commands
 
@@ -55,8 +55,13 @@ To avoid cumbersome installation procedures, we provide a self-contained Docker 
      
     * on **Windows**:
     
+    In [cmd](https://learn.microsoft.com/fr-fr/windows-server/administration/windows-commands/cmd):
     ```bash
     docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "%cd%":/home/jovyan/shared ghcr.io/bleyerj/mealor:latest
+    ```
+    or in [PowerShell](https://github.com/PowerShell/PowerShell):
+    ```powershell
+    docker run --init --rm -ti -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e CHOWN_HOME=yes -e CHOWN_EXTRAOPTS='-hR' --user root -v "${pwd}:/home/jovyan/shared" ghcr.io/bleyerj/mealor:latest
     ```
     
 
