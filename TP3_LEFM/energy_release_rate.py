@@ -21,10 +21,12 @@ def compute_J_integral(Eshelby, measures):
     # Surface integration measure
     dS = measures[2]
 
-    ###
-    ### COMPLETE HERE
-    ###
-    return integrate(-Eshelby[1,1]*dS(5) + Eshelby[1,0]*dS(6) + Eshelby[1,1]*dS(7))
+    J_integrand = (
+        inner(ey, Eshelby * -ey) * dS(5)
+        + inner(ey, Eshelby * ex) * dS(6)
+        + inner(ey, Eshelby * ey) * dS(7)
+    )
+    return 2 * integrate(J_integrand)
 
 
 def compute_G_theta(Eshelby, domain, ell, r_int, r_ext):
@@ -43,7 +45,6 @@ def compute_G_theta(Eshelby, domain, ell, r_int, r_ext):
         name="Theta",
     )
     save_to_file("linear_elasticity", theta)
+
     dx = Measure("dx", domain=domain)
-    
-    ### COMPLETE BELOW
-    return 0
+    return -2 * integrate(inner(grad(theta), Eshelby) * dx)
