@@ -1,0 +1,52 @@
+@DSL Implicit;
+@Behaviour GTN;
+
+@ModellingHypotheses{".+"};
+@StrainMeasure Hencky;
+
+@Algorithm NewtonRaphson;
+@Epsilon 1.e-12;
+@Theta 1;
+
+@MaterialProperty real xyoung;
+@MaterialProperty real xnu;
+@MaterialProperty real R0;
+@MaterialProperty real Rinf;
+@MaterialProperty real b;
+@MaterialProperty real q1;
+@MaterialProperty real q2;
+@MaterialProperty real q3;
+@MaterialProperty real fc;
+@MaterialProperty real fr;
+@MaterialProperty real fn;
+@MaterialProperty real en;
+@MaterialProperty real sn;
+
+
+@Brick StandardElastoViscoPlasticity{
+  stress_potential : "Hooke" {
+    young_modulus : "xyoung", 
+    poisson_ratio : "xnu"
+  },
+  inelastic_flow : "Plastic" {
+    criterion : "GursonTvergaardNeedleman1982" {
+      f_c : "fc",
+      f_r : "fr",
+      q_1 : "q1",
+      q_2 : "q2",
+      q_3 : "q3"
+    },
+    isotropic_hardening : "Voce" {
+       R0   : "R0",
+       Rinf : "Rinf",
+       b    : "b"
+    }  
+  },
+  porosity_evolution : {
+    nucleation_model : "Chu-Needleman 1980 (strain)" {
+	fn : "fn", 
+	en : "en", 
+	sn : "sn"
+	}
+  }
+};
