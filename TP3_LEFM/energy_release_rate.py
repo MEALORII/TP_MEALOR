@@ -13,7 +13,7 @@ from dolfinx import fem
 from mealor.utils import integrate, interpolate_expr, save_to_file
 
 
-def compute_J_integral_(Eshelby, measures):
+def compute_J_integral(Eshelby, measures):
     Eshelby = Eshelby("+")  # restrict the tensor on a single side
     # Unit vectors
     ex = as_vector([1, 0])
@@ -24,7 +24,7 @@ def compute_J_integral_(Eshelby, measures):
     ###
     ### COMPLETE HERE
     ###
-    return 0
+    return integrate(-Eshelby[1,1]*dS(5) + Eshelby[1,0]*dS(6) + Eshelby[1,1]*dS(7))
 
 
 def compute_G_theta(Eshelby, domain, ell, r_int, r_ext):
