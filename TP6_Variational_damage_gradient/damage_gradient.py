@@ -62,13 +62,13 @@ def solve_problem(domain, facets, prob_params, mech_params):
     def g(d):
         return 0
 
-    def sigma(u, d):
-        return 0
-
     def psi(u):
         return 0
     #####################
 
+    def sigma(u, d):
+        return g(d) * sigma0(u)
+        
     def psi_pos(u):
         ed = dev(eps(u))
         return 0.5 * kappa * ppos(tr(eps(u))) ** 2 + mu * inner(ed, ed)
