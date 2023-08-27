@@ -18,9 +18,6 @@
 @MaterialProperty real q3;
 @MaterialProperty real fc;
 @MaterialProperty real fr;
-@MaterialProperty real fn;
-@MaterialProperty real en;
-@MaterialProperty real sn;
 
 
 @Brick StandardElastoViscoPlasticity{
@@ -41,12 +38,5 @@
        Rinf : "Rinf",
        b    : "b"
     }  
-  },
-  porosity_evolution : {
-    nucleation_model : "Chu-Needleman 1980 (strain)" {
-	fn : "fn", 
-	en : "en", 
-	sn : "sn"
-	}
   }
 };
