@@ -58,17 +58,15 @@ def solve_problem(domain, facets, prob_params, mech_params):
     def sigma0(u):
         return lmbda_ps * tr(eps(u)) * Identity(2) + 2 * mu * eps(u)
 
-    ### COMPLETE HERE
     def g(d):
-        return 0
+        return (1 - d) ** 2 + kres
 
     def psi(u):
-        return 0
-    #####################
+        return 0.5 * inner(eps(u), sigma0(u))
 
     def sigma(u, d):
         return g(d) * sigma0(u)
-        
+
     def psi_pos(u):
         ed = dev(eps(u))
         return 0.5 * kappa * ppos(tr(eps(u))) ** 2 + mu * inner(ed, ed)
@@ -108,6 +106,9 @@ def solve_problem(domain, facets, prob_params, mech_params):
     d_ = ufl.TestFunction(V_d)
     dd = ufl.TrialFunction(V_d)
 
+    # total energy for the damage problem
+    # elastic_energy = (g(d) * psi_pos(u) + psi_neg(u)) * dx
+    elastic_energy = g(d) * psi(u) * dx
 
     if model == "AT1":
         cw = fem.Constant(domain, 8 / 3.0)
@@ -116,11 +117,7 @@ def solve_problem(domain, facets, prob_params, mech_params):
         cw = fem.Constant(domain, 2.0)
         w = lambda d: d**2
 
-    # total energy for the damage problem
-    ### COMPLETE HERE
-    elastic_energy = 0
-    fracture_energy = 0
-    ###
+    fracture_energy = Gc / cw * (w(d) / l0 + l0 * dot(grad(d), grad(d))) * dx
     total_energy = elastic_energy + fracture_energy
 
     F_u = derivative(elastic_energy, u, v)
