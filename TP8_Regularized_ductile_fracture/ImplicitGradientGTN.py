@@ -1,6 +1,3 @@
-# from implicit_gradient import mealor
-# from implicit_gradient import mealor
-
 import math
 import numpy as np
 import matplotlib.pyplot as plt
