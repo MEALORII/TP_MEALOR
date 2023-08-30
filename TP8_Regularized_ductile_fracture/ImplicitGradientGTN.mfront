@@ -1,81 +1,45 @@
-// Choice of the domain specific language DSL.
-//
-// This DSL is dedicated to strain based behaviour
-// integrated using an implicit scheme.
-//
-// This DSL automatically defines the strain
-// as its unique gradient. The value of the strain
-// at the beginning of the time step is accessible
-// in a variable named eto. The strain increment
-// is accessible in a variable named deto.
-//
-// This DSL automatically defines the stress as the
-// thermodynamic force conjugated with the strain.
-//
-// Finally, this DSL defines the elastic strain as the
-// first state variable
 @DSL Implicit;
 
-// Name of the behaviour
 @Behaviour ImplicitGradientGTN;
-// This line indicates that:
-// - eto is the Hencky strain.
-// - sig is the dual of the Hencky strain
+@Author Thomas Helfer;
+@Date 27 / 08 / 2023;
+@Description {
+}
+
 @StrainMeasure Hencky;
 
-// Selection of the algorithm used to solve the implicit scheme
 @Algorithm NewtonRaphson_NumericalJacobian;
-// Definition of the perturbation value used to compute a
-// numerical approximation of the residual
 @PerturbationValueForNumericalJacobianComputation 1.e-8;
-// Tolerance used for the convergence of the Newton algorithm
 @Epsilon 1.e-14;
-// Parameter of the implicit scheme. Here we select a purely implicit
-// resolution, as recommended for rate independent behaviours
 @Theta 1;
 
-// Inclusion of the header declaring the functions computing
-// the equivalent stress of the Gurson-Tvergaard-Needleman
-// model and its derivatives
 @Includes{
 #include "TFEL/Material/GursonTvergaardNeedleman1982StressCriterion.hxx"
 }
 
-// The standard elasticity brick is 
 @Brick StandardElasticity{young_modulus : 210e3, poisson_ratio : 0.3};
 
 @StateVariable strain p;
 p.setGlossaryName("EquivalentPlasticStrain");
 
-// Auxiliary state variables, i.e. state variables whose evolution
-// is **not** given by the resolution of the implicit scheme.
-//
-// Here the evolution of the porosity is explicitly given by the
-// non local variables
 @AuxiliaryStateVariable real fg, fn, f;
 fg.setEntryName("GrowthPorosity");
 fn.setEntryName("NucleationPorosity");
 f.setGlossaryName("Porosity");
 
-// Those variables are saved for the non local resolutions
 @AuxiliaryStateVariable strain dk, dw;
 dw.setEntryName("PlasticVolumeIncrement");
 dk.setEntryName("EquivalentPlasticStrainIncrement");
 
-// Time integral of the non local equivalent plastic strain
 @AuxiliaryStateVariable strain k_nl;
 k_nl.setEntryName("NonLocalEquivalentPlasticStrain");
 
-// indicator stating if the current integration point is broken
 @AuxiliaryStateVariable real broken;
 broken.setGlossaryName("Broken");
 
-// external variables provided by the non local resolutions
 @ExternalStateVariable strain dk_nl, dw_nl;
 dw_nl.setEntryName("NonLocalPlasticVolumeIncrement");
 dk_nl.setEntryName("NonLocalEquivalentPlasticStrainIncrement");
-
-// parmeters of the behaviour
 
 @Parameter stress R0 = 507;
 @Parameter stress Rinf = 818;
@@ -85,7 +49,6 @@ dk_nl.setEntryName("NonLocalEquivalentPlasticStrainIncrement");
 @Parameter real n_en = 0.3;
 @Parameter real n_sn = 0.1;
 
-// local variables
 @LocalVariable
     GursonTvergaardNeedleman1982StressCriterionParameters<StressStensor>
         params;
@@ -98,15 +61,14 @@ dk_nl.setEntryName("NonLocalEquivalentPlasticStrainIncrement");
   // update porosities
   const auto An =
       n_fn / (n_sn * sqrt(2 * pi)) *
-      exp(-power<2>((k_nl - n_en) / n_sn) / 2);
-  //  const auto An = ...;
-  const auto dfg = ...;
-  const auto dfn = ...;
+      exp(-power<2>((k_nl + theta * dk_nl - n_en) / n_sn) / 2);
+  const auto dfg = (1 - fg) * dw_nl;
+  const auto dfn = An * dk_nl;
   fn += dfn;
   fg += dfg;
   f += dfn + dfg;
   // update non local equivalent plastic strain
-  k_nl += dk_nl;
+  k_nl += (dk_nl + ddk_nl);
   // GTN parameters
   params.f_c = 0.1;
   params.f_r = 0.25;
@@ -123,13 +85,11 @@ dk_nl.setEntryName("NonLocalEquivalentPlasticStrainIncrement");
   const auto seq =
     computeGursonTvergaardNeedleman1982Stress(sigel, f, params, seps);
   // yield surface at the beginning of the time step
-  const auto Rel = ...;
-  plastic_loading = ...;
+  const auto Rel = R0 + (Rinf - R0) * (1-exp(-b * p));
+  plastic_loading = seq > Rel;
 }
 
 @Integrator {
-  // by default, feel is initialized to deel-deto
-  // by default, fkappa is initialized to dkappa
   constexpr auto eeps = strain(1e-14);
   const auto seps = young * eeps;
   if (!plastic_loading) {
@@ -139,18 +99,18 @@ dk_nl.setEntryName("NonLocalEquivalentPlasticStrainIncrement");
   const auto [seq, n, _] =
       computeGursonTvergaardNeedleman1982StressNormal(sig, f, params, seps);
   // split of strain
-  feel += ...;
+  feel += (1 - f) * dp * n;
   // plastic part
-  const auto p_mts = ...;
-  const auto R = ...;
+  const auto p_mts = p + theta * dp;
+  const auto R = R0 + (Rinf - R0) * (1-exp(-b * p_mts));
   fp = (seq - R) / young;
-  static_cast<void>(_); // unsued variables
+  static_cast<void>(_);
 }
 
 @UpdateAuxiliaryStateVariables {
   if(!broken){
-    dw = ...;
-    dk = ...;
+  dw = trace(deto - deel);
+  dk = dp;
   } else {
     dw = 0;
     dk = 0;

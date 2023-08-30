@@ -41,7 +41,7 @@ class LocalNonlinearMaterialProblem(NonlinearMaterialProblem):
 
 
 ## Define geometry and mesh (quadrangles)
-refinement_level = 0
+refinement_level = 1
 R = 0.92            # notch radius
 height = 10         # half-height of the specimen
 Phi = 2.2           # maximum diameter
@@ -54,7 +54,7 @@ domain, cell_markers, facet_markers = generate_NT(
 )
 
 ## Regularization length
-lc = 0.1
+lc = 0.05
 
 
 V = fem.VectorFunctionSpace(domain, ("CG", 1))
